@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/test.css">
+  <title>Modal with Form Example</title>
+</head>
+<body>
+  <button id="openModalBtn">Ouvrir le Modal</button>
+    <button class="close">test</button>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Formulaire Modal</h2>
+      <form id="modalForm">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/test.js"></script>
+</body>
+</html>
