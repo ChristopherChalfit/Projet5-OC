@@ -5,14 +5,14 @@ import {
   initialiseFiltreActif,
 } from "./categorie.js";
 
-//serveur enligne : https://nodeserver-3vfm.onrender.com/api/
+// serveur enligne : https://nodeserver-3vfm.onrender.com/api/
 // serveur local : http://localhost:5678/api/
 const apiUrlWorks = "https://nodeserver-3vfm.onrender.com/api/works";
 const apiUrlCategories = "https://nodeserver-3vfm.onrender.com/api/categories";
 const apiUrlDeleteWork = "https://nodeserver-3vfm.onrender.com/api/works/";
 
 let works = window.localStorage.getItem("works");
-window.localStorage.removeItem("works");
+
 async function afficherCategories() {
   const reponseCategories = await fetch(apiUrlCategories);
   const categories = await reponseCategories.json();
@@ -29,14 +29,6 @@ async function afficherProjets() {
   }
   generateWorks(works);
 }
-async function initialiseProjet() {
-  await afficherProjets();
-  await afficherCategories();
-  filtrerProjets();
-  initialiseFiltreActif();
-  isConnected();
-}
-initialiseProjet();
 
 function getUserInfo() {
   const userInfoJSON = localStorage.getItem("tokenAuth");
@@ -60,10 +52,16 @@ function isConnected() {
   }
 }
 const btnDct = document.getElementById("btn--deconnection");
-btnDct.addEventListener("click", function () {
-  disconnect();
-});
+btnDct.addEventListener("click", disconnect);
 function disconnect() {
   localStorage.removeItem("tokenAuth");
   location.reload();
 }
+async function initialiseProjet() {
+  await afficherProjets();
+  await afficherCategories();
+  filtrerProjets();
+  initialiseFiltreActif();
+  isConnected();
+}
+initialiseProjet();
