@@ -1,7 +1,9 @@
+import { generatethumbnail } from "./galery.js";
 var openModalBtn = document.getElementById("openModalBtn");
 var modal = document.getElementById("myModal");
 var closeButton = document.querySelector("#myModal .close");
 var secondbutton = document.querySelector(".close");
+
 function openModal() {
   modal.style.display = "block";
 }
@@ -27,7 +29,9 @@ btnAdd.addEventListener("click", function () {
 returnBack.addEventListener("click", function () {
   toggleModal("modal1");
 });
-
+let works = window.localStorage.getItem("works");
+works = JSON.parse(works);
+generatethumbnail(works);
 function toggleModal(modalId) {
   var allModals = document.querySelectorAll(".modal");
   for (var i = 0; i < allModals.length; i++) {
