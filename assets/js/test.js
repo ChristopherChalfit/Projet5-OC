@@ -42,7 +42,6 @@ function toggleModal(modalId) {
 addImgChangeListener();
 function addImgChangeListener() {
   const imgInput = document.querySelector('input[name="image"]');
-
   imgInput.addEventListener("change", function (event) {
     event.preventDefault();
     const imageDiv = document.getElementById("dropzone");

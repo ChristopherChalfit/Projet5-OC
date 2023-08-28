@@ -4,12 +4,15 @@ import {
   filtrerProjets,
   initialiseFiltreActif,
 } from "./categorie.js";
-const apiUrlWorks = "http://localhost:5678/api/works";
-const apiUrlCategories = "http://localhost:5678/api/categories";
-const apiUrlDeleteWork = "http://localhost:5678/api/works/";
+
+//serveur enligne : https://nodeserver-3vfm.onrender.com/api/
+// serveur local : http://localhost:5678/api/
+const apiUrlWorks = "https://nodeserver-3vfm.onrender.com/api/works";
+const apiUrlCategories = "https://nodeserver-3vfm.onrender.com/api/categories";
+const apiUrlDeleteWork = "https://nodeserver-3vfm.onrender.com/api/works/";
 
 let works = window.localStorage.getItem("works");
-
+window.localStorage.removeItem("works");
 async function afficherCategories() {
   const reponseCategories = await fetch(apiUrlCategories);
   const categories = await reponseCategories.json();

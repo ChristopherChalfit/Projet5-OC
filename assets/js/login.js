@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const pwdInput = document.getElementById("password");
   const textError = "Email ou mot de passe incorrect";
-  const apiUrlLogin = "http://localhost:5678/api/users/login";
+  const apiUrlLogin = "https://nodeserver-3vfm.onrender.com/api/users/login";
 
   async function handleSubmit(event) {
     event.preventDefault();
