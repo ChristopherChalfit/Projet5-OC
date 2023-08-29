@@ -1,4 +1,5 @@
 import { generatethumbnail } from "./galery.js";
+import { deleteWork } from "./api.js";
 var openModalBtn = document.getElementById("openModalBtn");
 var modal = document.getElementById("myModal");
 var closeButton = document.querySelector("#myModal .close");
@@ -81,3 +82,18 @@ function addPostListener() {
 function postWork(event) {
   event.preventDefault();
 }
+const trashs = document.querySelectorAll(".trash");
+trashs.forEach((trash) => {
+  trash.addEventListener("click", function (event) {
+    event.preventDefault();
+    let trashId = trash.getAttribute("data-id");
+    deleteWork(trashId);
+    sessionStorage.setItem("showModalAfterReload", "true");
+  });
+});
+window.addEventListener("load", function () {
+  if (sessionStorage.getItem("showModalAfterReload")) {
+    openModal();
+    sessionStorage.removeItem("showModalAfterReload");
+  }
+});

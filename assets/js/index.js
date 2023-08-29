@@ -1,67 +1,80 @@
-import { generateWorks } from "./galery.js";
+import { generateWorks, generatethumbnail } from "./galery.js";
 import {
   genererCategories,
   filtrerProjets,
   initialiseFiltreActif,
+  genererCategoriesThumb,
 } from "./categorie.js";
-
+import {
+  fetchWorksData,
+  fetchCategoriesData,
+  disconnect,
+  getUserInfo,
+} from "./api.js";
+import { openModal } from "./modal.js";
 // serveur enligne : https://nodeserver-3vfm.onrender.com/api/
 // serveur local : http://localhost:5678/api/
-const apiUrlWorks = "https://nodeserver-3vfm.onrender.com/api/works";
-const apiUrlCategories = "https://nodeserver-3vfm.onrender.com/api/categories";
-const apiUrlDeleteWork = "https://nodeserver-3vfm.onrender.com/api/works/";
+document.addEventListener("DOMContentLoaded", function () {
+  const apiUrlWorks = "http://localhost:5678/api/works";
+  const apiUrlCategories = "http://localhost:5678/api/categories";
+  const apiUrlDeleteWork = "http://localhost:5678/api/works/";
+  const loginUrlBtn = "loginlink";
 
-let works = window.localStorage.getItem("works");
+  let works = window.localStorage.getItem("works");
+  let category = window.localStorage.getItem("category");
+  async function afficherCategories() {
+    const fetch = await fetchCategoriesData();
+    genererCategories(fetch);
+  }
+  async function afficherProjets() {
+    if (works === null) {
+      const fetch = await fetchWorksData();
+    }
+    works = window.localStorage.getItem("works");
+    generateWorks(works);
+  }
 
-async function afficherCategories() {
-  const reponseCategories = await fetch(apiUrlCategories);
-  const categories = await reponseCategories.json();
-  genererCategories(categories);
-}
-async function afficherProjets() {
-  if (works === null) {
-    const reponseWorks = await fetch(apiUrlWorks);
-    const works = await reponseWorks.json();
-    const valeurWorks = JSON.stringify(works);
-    window.localStorage.setItem("works", valeurWorks);
-  } else {
-    works = JSON.parse(works);
+  function isConnected() {
+    const savedUserInfo = getUserInfo();
+    const blackhead = document.getElementById("blackhead");
+    const btnFiltres = document.getElementById("btn-filtre");
+    const allBtnFiltre = btnFiltres.querySelectorAll("button");
+    const editionMode = document.getElementById("edition--mode");
+    const loginBtn = document.getElementById(loginUrlBtn);
+    if (savedUserInfo.status === 200) {
+      blackhead.style.display = "flex";
+      allBtnFiltre.forEach((bouton) => {
+        bouton.style.display = "none";
+      });
+      editionMode.style.display = "flex";
+      loginBtn.innerHTML = "Logout";
+    }
   }
-  generateWorks(works);
-}
 
-function getUserInfo() {
-  const userInfoJSON = localStorage.getItem("tokenAuth");
-  if (!userInfoJSON) {
-    return {};
+  const loginBtns = document.getElementById(loginUrlBtn);
+  loginBtns.addEventListener("click", function () {
+    const text = loginBtns.innerText;
+    console.log(text);
+    if (loginBtns.innerText === "login") {
+      const url = `./pages/login.html`;
+      document.location = url;
+    } else {
+      disconnect();
+    }
+  });
+  const modifBtn = document.getElementById("modificationBtn");
+  modifBtn.addEventListener("click", function () {
+    openModal();
+  });
+  async function initialiseProjet() {
+    await afficherProjets();
+    await afficherCategories();
+    category = window.localStorage.getItem("category");
+    await genererCategoriesThumb(category);
+    await generatethumbnail(works);
+    filtrerProjets();
+    initialiseFiltreActif();
+    isConnected();
   }
-  return JSON.parse(userInfoJSON);
-}
-function isConnected() {
-  const savedUserInfo = getUserInfo();
-  const blackhead = document.getElementById("blackhead");
-  const btnFiltres = document.getElementById("btn-filtre");
-  const allBtnFiltre = btnFiltres.querySelectorAll("button");
-  const editionMode = document.getElementById("edition--mode");
-  if (savedUserInfo.status === 200) {
-    blackhead.style.display = "flex";
-    allBtnFiltre.forEach((bouton) => {
-      bouton.style.display = "none";
-    });
-    editionMode.style.display = "flex";
-  }
-}
-const btnDct = document.getElementById("btn--deconnection");
-btnDct.addEventListener("click", disconnect);
-function disconnect() {
-  localStorage.removeItem("tokenAuth");
-  location.reload();
-}
-async function initialiseProjet() {
-  await afficherProjets();
-  await afficherCategories();
-  filtrerProjets();
-  initialiseFiltreActif();
-  isConnected();
-}
-initialiseProjet();
+  initialiseProjet();
+});
