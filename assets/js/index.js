@@ -9,16 +9,17 @@ import {
   fetchWorksData,
   fetchCategoriesData,
   disconnect,
-  getUserInfo,
+  isConnected,
 } from "./api.js";
+import { loginUrlBtn } from "./login.js";
 import { openModal } from "./modal.js";
+
 // serveur enligne : https://nodeserver-3vfm.onrender.com/api/
 // serveur local : http://localhost:5678/api/
 document.addEventListener("DOMContentLoaded", function () {
   const apiUrlWorks = "http://localhost:5678/api/works";
   const apiUrlCategories = "http://localhost:5678/api/categories";
   const apiUrlDeleteWork = "http://localhost:5678/api/works/";
-  const loginUrlBtn = "loginlink";
 
   let works = window.localStorage.getItem("works");
   let category = window.localStorage.getItem("category");
@@ -34,23 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
     generateWorks(works);
   }
 
-  function isConnected() {
-    const savedUserInfo = getUserInfo();
-    const blackhead = document.getElementById("blackhead");
-    const btnFiltres = document.getElementById("btn-filtre");
-    const allBtnFiltre = btnFiltres.querySelectorAll("button");
-    const editionMode = document.getElementById("edition--mode");
-    const loginBtn = document.getElementById(loginUrlBtn);
-    if (savedUserInfo.status === 200) {
-      blackhead.style.display = "flex";
-      allBtnFiltre.forEach((bouton) => {
-        bouton.style.display = "none";
-      });
-      editionMode.style.display = "flex";
-      loginBtn.innerHTML = "Logout";
-    }
-  }
-
   const loginBtns = document.getElementById(loginUrlBtn);
   loginBtns.addEventListener("click", function () {
     const text = loginBtns.innerText;
@@ -61,10 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       disconnect();
     }
-  });
-  const modifBtn = document.getElementById("modificationBtn");
-  modifBtn.addEventListener("click", function () {
-    openModal();
   });
   async function initialiseProjet() {
     await afficherProjets();

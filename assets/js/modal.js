@@ -3,6 +3,7 @@ const modals = document.getElementById("myModal");
 const btnAdd = document.getElementById("add--btn");
 const returnBack = document.getElementById("arrow--left");
 const closeButton = document.getElementById("closeBtn");
+const modifBtn = document.getElementById("modificationBtn");
 export function openModal() {
   modals.style.display = "block";
 }
@@ -30,6 +31,9 @@ returnBack.addEventListener("click", function () {
   toggleModal("modal1");
 });
 closeButton.addEventListener("click", closeModal);
+modifBtn.addEventListener("click", function () {
+  openModal();
+});
 window.addEventListener("click", function (event) {
   if (event.target === modals) {
     closeModal();

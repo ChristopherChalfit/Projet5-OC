@@ -1,8 +1,14 @@
 import { postLogin } from "./api.js";
+export const loginUrlBtn = "loginlink";
 export const loginError = document.getElementById("login--error");
 export const textError = "Email ou mot de passe incorrect";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const loginBtn = document.getElementById("login--btn");
+  const emailInput = document.getElementById("email");
+  const pwdInput = document.getElementById("password");
+  const eye = document.querySelector(".toggle-password");
+
   function togglePasswordVisibility() {
     const passwordInput = document.getElementById("password");
     const togglePassword = document.querySelector(".toggle-password");
@@ -14,16 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
       togglePassword.innerHTML = '<i class="fa fa-eye fa-xl"></i>';
     }
   }
-
-  const eye = document.querySelector(".toggle-password");
-  if (eye) {
-    eye.addEventListener("click", function () {
-      togglePasswordVisibility();
-    });
-  }
-  const loginBtn = document.getElementById("login--btn");
-  const emailInput = document.getElementById("email");
-  const pwdInput = document.getElementById("password");
   async function handleSubmit(event) {
     event.preventDefault();
     const email = emailInput.value;
@@ -34,9 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     await loginUser(email, pwd);
   }
-  if (loginBtn) {
-    loginBtn.addEventListener("click", handleSubmit);
-  }
+
   async function loginUser(email, password) {
     const body = {
       email: email,
@@ -47,5 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function sendMessageError(msg) {
     loginError.innerHTML = msg;
+  }
+  if (loginBtn) {
+    loginBtn.addEventListener("click", handleSubmit);
+  }
+  if (eye) {
+    eye.addEventListener("click", function () {
+      togglePasswordVisibility();
+    });
   }
 });

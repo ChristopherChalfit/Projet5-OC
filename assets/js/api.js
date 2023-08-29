@@ -1,4 +1,4 @@
-import { loginError, textError } from "./login.js";
+import { loginError, textError, loginUrlBtn } from "./login.js";
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
@@ -91,4 +91,21 @@ function sendMessageError(msg) {
 export function disconnect() {
   localStorage.removeItem("tokenAuth");
   location.reload();
+}
+
+export function isConnected() {
+  const savedUserInfo = getUserInfo();
+  const blackhead = document.getElementById("blackhead");
+  const btnFiltres = document.getElementById("btn-filtre");
+  const allBtnFiltre = btnFiltres.querySelectorAll("button");
+  const editionMode = document.getElementById("edition--mode");
+  const loginBtn = document.getElementById(loginUrlBtn);
+  if (savedUserInfo.status === 200) {
+    blackhead.style.display = "flex";
+    allBtnFiltre.forEach((bouton) => {
+      bouton.style.display = "none";
+    });
+    editionMode.style.display = "flex";
+    loginBtn.innerHTML = "Logout";
+  }
 }
