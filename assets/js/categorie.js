@@ -13,7 +13,7 @@ export function genererCategories(categories) {
   }
 }
 export function filtrerProjets() {
-  const buttonsCategories = document.querySelectorAll("#portfolio button");
+  const buttonsCategories = document.querySelectorAll("#btn-filtre button");
   buttonsCategories.forEach((button) => {
     button.addEventListener("click", () => {
       const category = button.innerText.trim();

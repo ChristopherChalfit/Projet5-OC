@@ -22,7 +22,7 @@ export function generateWorks(work) {
   }
 }
 
-export async function generatethumbnail(work) {
+export function generatethumbnail(work) {
   const works = JSON.parse(work);
   for (let i = 0; i < works.length; i++) {
     const article = works[i];
@@ -32,6 +32,7 @@ export async function generatethumbnail(work) {
       workElement.dataset.id = works[i].id;
       workElement.classList.add("image-card");
       const imageElement = document.createElement("img");
+      imageElement.classList.add("testImg");
       imageElement.src = article.imageUrl;
       imageElement.alt = article.title;
       const nameElement = document.createElement("figcaption");
@@ -43,30 +44,28 @@ export async function generatethumbnail(work) {
       workElement.appendChild(nameElement);
       workElement.insertAdjacentHTML(
         "afterbegin",
-        `<div class="move">
-        <a href="#" id="trashButtonNb1"
-          ><i
-            class="fa fa-solid fa-up-down-left-right"
-            aria-hidden="true"
-          ></i
-        ></a>
-      </div>
+        `
       <div class="trash" data-id=${article.id}>
-        <a href="#" id="trashButtonNb1"
+        <button id="trashButtonNb1"
           ><i class="fa fa-light fa-trash-can" aria-hidden="true"></i
-        ></a>
+        ></button>
       </div>`
       );
     }
-    const trashs = document.querySelectorAll(".trash");
-    trashs.forEach((trash) => {
-      trash.addEventListener("click", function (event) {
-        event.preventDefault();
-        console.log("test");
-        let trashId = trash.getAttribute("data-id");
-        deleteWork(trashId);
-        sessionStorage.setItem("showModalAfterReload", "true");
-      });
-    });
   }
+}
+export function trash() {
+  const trashs = document.querySelectorAll(".trash");
+  trashs.forEach((trash) => {
+    trash.addEventListener("click", async function (event) {
+      event.preventDefault();
+      console.log("lancement");
+      let trashId = trash.getAttribute("data-id");
+      await deleteWork(trashId);
+      const work = localStorage.getItem("works");
+      generateWorks(work);
+      generatethumbnail(work);
+      //sessionStorage.setItem("showModalAfterReload", "true");
+    });
+  });
 }

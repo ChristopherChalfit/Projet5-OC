@@ -1,4 +1,4 @@
-import { generateWorks, generatethumbnail } from "./galery.js";
+import { generateWorks, generatethumbnail, trash } from "./galery.js";
 import {
   genererCategories,
   filtrerProjets,
@@ -10,13 +10,15 @@ import {
   fetchCategoriesData,
   disconnect,
   isConnected,
+  deleteWork,
 } from "./api.js";
 import { loginUrlBtn } from "./login.js";
 import { openModal } from "./modal.js";
 
 // serveur enligne : https://nodeserver-3vfm.onrender.com/api/
 // serveur local : http://localhost:5678/api/
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function (event) {
+  event.preventDefault();
   const apiUrlWorks = "http://localhost:5678/api/works";
   const apiUrlCategories = "http://localhost:5678/api/categories";
   const apiUrlDeleteWork = "http://localhost:5678/api/works/";
@@ -39,19 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
   loginBtns.addEventListener("click", function () {
     const text = loginBtns.innerText;
     console.log(text);
-    if (loginBtns.innerText === "login") {
+    if (loginBtns.innerText === "Login") {
       const url = `./pages/login.html`;
       document.location = url;
     } else {
+      console.log("deconnection");
       disconnect();
     }
   });
   async function initialiseProjet() {
-    await afficherProjets();
-    await afficherCategories();
+    afficherProjets();
+    afficherCategories();
     category = window.localStorage.getItem("category");
-    await genererCategoriesThumb(category);
-    await generatethumbnail(works);
+    genererCategoriesThumb(category);
+    generatethumbnail(works);
+    trash();
     filtrerProjets();
     initialiseFiltreActif();
     isConnected();

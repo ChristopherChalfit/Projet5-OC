@@ -2,7 +2,12 @@ import { loginError, textError, loginUrlBtn } from "./login.js";
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const work = await response.json();
     window.localStorage.setItem("works", JSON.stringify(work));
     return work;
@@ -43,17 +48,21 @@ export async function postLogin(data) {
 
 export async function deleteWork(workId) {
   try {
+    console.log("lancement 2");
     const url = `http://localhost:5678/api/works/${workId}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getUserInfo().token}`,
       },
     });
+    console.log(response);
     if (!response.ok) {
       throw new Error("La suppression a échoué");
     } else {
-      console.log(fetchWorksData());
+      // console.log(fetchWorksData());
+      await fetchWorksData();
     }
   } catch (error) {
     console.error(error);
@@ -82,10 +91,10 @@ async function tokenAuth(userId, token, status) {
     status: status,
   };
   localStorage.setItem("tokenAuth", JSON.stringify(stock));
-  await checkLocalStorage();
+  checkLocalStorage();
 }
-async function checkLocalStorage() {
-  const token = await localStorage.getItem("tokenAuth");
+function checkLocalStorage() {
+  const token = window.localStorage.getItem("tokenAuth");
   if (token === "undefined") {
     loginError.innerHTML = textError;
   } else {
