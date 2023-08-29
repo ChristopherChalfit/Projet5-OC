@@ -1,4 +1,5 @@
 import { loginError, textError, loginUrlBtn } from "./login.js";
+import { generateWorks, generatethumbnail } from "./galery.js";
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
@@ -48,7 +49,6 @@ export async function postLogin(data) {
 
 export async function deleteWork(workId) {
   try {
-    console.log("lancement 2");
     const url = `http://localhost:5678/api/works/${workId}`;
     const response = await fetch(url, {
       method: "DELETE",
@@ -63,6 +63,9 @@ export async function deleteWork(workId) {
     } else {
       // console.log(fetchWorksData());
       await fetchWorksData();
+      const work = localStorage.getItem("works");
+      generateWorks(work);
+      generatethumbnail(work);
     }
   } catch (error) {
     console.error(error);
@@ -99,7 +102,7 @@ function checkLocalStorage() {
     loginError.innerHTML = textError;
   } else {
     const message = "Connexion réussie !";
-    const url = `/FrontEnd/index.html?message=${encodeURIComponent(message)}`;
+    const url = `../index.html?message=${encodeURIComponent(message)}`;
     document.location = url;
   }
 }
@@ -114,13 +117,13 @@ export function disconnect() {
 export function isConnected() {
   const savedUserInfo = getUserInfo();
   const blackhead = document.getElementById("blackhead");
-  const btnFiltres = document.getElementById("btn-filtre");
-  const allBtnFiltre = btnFiltres.querySelectorAll("button");
   const editionMode = document.getElementById("edition--mode");
+  const buttonsCategories = document.querySelectorAll("#portfolio button");
   const loginBtn = document.getElementById(loginUrlBtn);
+  console.log(buttonsCategories);
   if (savedUserInfo.status === 200) {
     blackhead.style.display = "flex";
-    allBtnFiltre.forEach((bouton) => {
+    buttonsCategories.forEach((bouton) => {
       bouton.style.display = "none";
     });
     editionMode.style.display = "flex";

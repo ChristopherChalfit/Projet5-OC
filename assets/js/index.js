@@ -10,7 +10,6 @@ import {
   fetchCategoriesData,
   disconnect,
   isConnected,
-  deleteWork,
 } from "./api.js";
 import { loginUrlBtn } from "./login.js";
 import { openModal } from "./modal.js";
@@ -50,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   });
   async function initialiseProjet() {
-    afficherProjets();
-    afficherCategories();
+    await afficherProjets();
+    await afficherCategories();
     category = window.localStorage.getItem("category");
     genererCategoriesThumb(category);
     generatethumbnail(works);

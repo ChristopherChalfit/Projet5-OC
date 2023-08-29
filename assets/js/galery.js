@@ -27,6 +27,7 @@ export function generatethumbnail(work) {
   for (let i = 0; i < works.length; i++) {
     const article = works[i];
     const sectionThumb = document.getElementById("containerThumb");
+
     if (sectionThumb) {
       const workElement = document.createElement("figure");
       workElement.dataset.id = works[i].id;
@@ -59,12 +60,9 @@ export function trash() {
   trashs.forEach((trash) => {
     trash.addEventListener("click", async function (event) {
       event.preventDefault();
-      console.log("lancement");
       let trashId = trash.getAttribute("data-id");
       await deleteWork(trashId);
-      const work = localStorage.getItem("works");
-      generateWorks(work);
-      generatethumbnail(work);
+
       //sessionStorage.setItem("showModalAfterReload", "true");
     });
   });
