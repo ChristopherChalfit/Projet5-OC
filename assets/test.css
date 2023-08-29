@@ -202,7 +202,8 @@ button {
 }
 
 #modal1,
-#modal2 {
+#modal2,
+#modal3 {
   display: flex;
   flex-direction: column;
   max-height: 400px;
@@ -217,6 +218,7 @@ button {
   font-size: 26px;
   line-height: 30px;
   text-align: center;
+  padding-bottom: 35px;
 }
 
 .addwork {
@@ -262,6 +264,28 @@ button {
   position: relative;
 }
 
+#delAllBtn,
+#notdelAllBtn {
+  color: inherit;
+  text-decoration: none;
+}
+
+.color-red {
+  color: red !important;
+}
+
+.color-green {
+  color: green !important;
+}
+
+#formDelAll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 30px;
+}
 
 #dropzone {
   padding-bottom: 20px;

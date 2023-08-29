@@ -59,6 +59,15 @@ export async function deleteWork(workId) {
     console.error(error);
   }
 }
+export async function deleteAllWork(works) {
+  const work = JSON.parse(works);
+  for (let i = 0; i < work.length; i++) {
+    const id = work[i].id;
+    deleteWork(id);
+    window.localStorage.removeItem("works");
+  }
+}
+
 export function getUserInfo() {
   const userInfoJSON = localStorage.getItem("tokenAuth");
   if (!userInfoJSON) {

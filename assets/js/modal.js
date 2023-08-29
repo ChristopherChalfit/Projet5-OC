@@ -1,9 +1,12 @@
-import { deleteWork } from "./api.js";
+import { deleteAllWork } from "./api.js";
 const modals = document.getElementById("myModal");
 const btnAdd = document.getElementById("add--btn");
-const returnBack = document.getElementById("arrow--left");
+const returnBack = document.querySelectorAll(".arrow--left");
 const closeButton = document.getElementById("closeBtn");
 const modifBtn = document.getElementById("modificationBtn");
+const delAllGal = document.getElementById("destructionGalerie");
+const delAllGalVal = document.getElementById("delAllBtn");
+const notdelAllGal = document.getElementById("notdelAllBtn");
 export function openModal() {
   modals.style.display = "block";
 }
@@ -27,12 +30,26 @@ function toggleModal(modalId) {
 btnAdd.addEventListener("click", function () {
   toggleModal("modal2");
 });
-returnBack.addEventListener("click", function () {
-  toggleModal("modal1");
+returnBack.forEach((returns) => {
+  returns.addEventListener("click", function () {
+    toggleModal("modal1");
+  });
 });
+
 closeButton.addEventListener("click", closeModal);
 modifBtn.addEventListener("click", function () {
   openModal();
+});
+delAllGal.addEventListener("click", function () {
+  toggleModal("modal3");
+});
+notdelAllGal.addEventListener("click", function () {
+  toggleModal("modal1");
+});
+delAllGalVal.addEventListener("click", function () {
+  const works = window.localStorage.getItem("works");
+  deleteAllWork(works);
+  window.localStorage.removeItem("works");
 });
 window.addEventListener("click", function (event) {
   if (event.target === modals) {
