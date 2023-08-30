@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     category = window.localStorage.getItem("category");
     genererCategoriesThumb(category);
     generatethumbnail(works);
-    trash();
     filtrerProjets();
     initialiseFiltreActif();
     isConnected();
