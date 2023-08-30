@@ -11,9 +11,8 @@ import {
   disconnect,
   isConnected,
 } from "./api.js";
-import { loginUrlBtn } from "./login.js";
-import { openModal } from "./modal.js";
-
+import { addPostListener } from "./works.js";
+import { addEventModal } from "./modal.js";
 // serveur enligne : https://nodeserver-3vfm.onrender.com/api/
 // serveur local : http://localhost:5678/api/
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -36,18 +35,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     generateWorks(works);
   }
 
-  const loginBtns = document.getElementById(loginUrlBtn);
-  loginBtns.addEventListener("click", function () {
-    const text = loginBtns.innerText;
-    console.log(text);
-    if (loginBtns.innerText === "Login") {
-      const url = `./pages/login.html`;
-      document.location = url;
-    } else {
-      console.log("deconnection");
-      disconnect();
-    }
-  });
   async function initialiseProjet() {
     await afficherProjets();
     await afficherCategories();
@@ -57,6 +44,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     filtrerProjets();
     initialiseFiltreActif();
     isConnected();
+    addEventModal();
+    addPostListener();
   }
   initialiseProjet();
 });

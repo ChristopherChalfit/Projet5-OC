@@ -16,7 +16,7 @@ export function closeModal() {
   toggleModal("modal1");
 }
 
-function toggleModal(modalId) {
+export function toggleModal(modalId) {
   var allModals = document.querySelectorAll(".modal");
   for (var i = 0; i < allModals.length; i++) {
     allModals[i].style.display = "none";
@@ -27,38 +27,40 @@ function toggleModal(modalId) {
     modalToShow.style.display = "flex";
   }
 }
-btnAdd.addEventListener("click", function () {
-  toggleModal("modal2");
-});
-returnBack.forEach((returns) => {
-  returns.addEventListener("click", function () {
+export function addEventModal() {
+  btnAdd.addEventListener("click", function () {
+    toggleModal("modal2");
+  });
+  returnBack.forEach((returns) => {
+    returns.addEventListener("click", function () {
+      toggleModal("modal1");
+    });
+  });
+
+  closeButton.addEventListener("click", closeModal);
+  modifBtn.addEventListener("click", function () {
+    openModal();
+  });
+  delAllGal.addEventListener("click", function () {
+    toggleModal("modal3");
+  });
+  notdelAllGal.addEventListener("click", function () {
     toggleModal("modal1");
   });
-});
-
-closeButton.addEventListener("click", closeModal);
-modifBtn.addEventListener("click", function () {
-  openModal();
-});
-delAllGal.addEventListener("click", function () {
-  toggleModal("modal3");
-});
-notdelAllGal.addEventListener("click", function () {
-  toggleModal("modal1");
-});
-delAllGalVal.addEventListener("click", function () {
-  const works = window.localStorage.getItem("works");
-  deleteAllWork(works);
-  window.localStorage.removeItem("works");
-});
-window.addEventListener("click", function (event) {
-  if (event.target === modals) {
-    closeModal();
-  }
-});
-window.addEventListener("load", function () {
-  if (sessionStorage.getItem("showModalAfterReload")) {
-    openModal();
-    sessionStorage.removeItem("showModalAfterReload");
-  }
-});
+  delAllGalVal.addEventListener("click", function () {
+    const works = window.localStorage.getItem("works");
+    deleteAllWork(works);
+    window.localStorage.removeItem("works");
+  });
+  window.addEventListener("click", function (event) {
+    if (event.target === modals) {
+      closeModal();
+    }
+  });
+  window.addEventListener("load", function () {
+    if (sessionStorage.getItem("showModalAfterReload")) {
+      openModal();
+      sessionStorage.removeItem("showModalAfterReload");
+    }
+  });
+}

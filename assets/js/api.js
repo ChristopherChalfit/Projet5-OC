@@ -1,5 +1,6 @@
 import { loginError, textError, loginUrlBtn } from "./login.js";
 import { generateWorks, generatethumbnail } from "./galery.js";
+import { toggleModal } from "./modal.js";
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
@@ -46,7 +47,22 @@ export async function postLogin(data) {
     return rps;
   }
 }
-
+export async function postWork(data) {
+  const url = "http://localhost:5678/api/works";
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getUserInfo().token}`,
+    },
+    body: data,
+  });
+  const rps = await response.json();
+  await fetchWorksData();
+  const work = localStorage.getItem("works");
+  generateWorks(work);
+  generatethumbnail(work);
+  toggleModal("modal1");
+}
 export async function deleteWork(workId) {
   try {
     const url = `http://localhost:5678/api/works/${workId}`;
@@ -57,12 +73,14 @@ export async function deleteWork(workId) {
         Authorization: `Bearer ${getUserInfo().token}`,
       },
     });
-    console.log(response);
     if (!response.ok) {
       throw new Error("La suppression a échoué");
     } else {
       await fetchWorksData();
       const work = localStorage.getItem("works");
+      if (work.length === 2) {
+        localStorage.removeItem("works");
+      }
       generateWorks(work);
       generatethumbnail(work);
     }
@@ -119,7 +137,6 @@ export function isConnected() {
   const editionMode = document.getElementById("edition--mode");
   const buttonsCategories = document.querySelectorAll("#portfolio button");
   const loginBtn = document.getElementById(loginUrlBtn);
-  console.log(buttonsCategories);
   if (savedUserInfo.status === 200) {
     blackhead.style.display = "flex";
     buttonsCategories.forEach((bouton) => {

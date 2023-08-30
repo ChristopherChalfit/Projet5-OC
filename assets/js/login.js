@@ -1,4 +1,4 @@
-import { postLogin } from "./api.js";
+import { postLogin, disconnect } from "./api.js";
 export const loginUrlBtn = "loginlink";
 export const loginError = document.getElementById("login--error");
 export const textError = "Email ou mot de passe incorrect";
@@ -50,4 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
       togglePasswordVisibility();
     });
   }
+  const loginBtns = document.getElementById(loginUrlBtn);
+  loginBtns.addEventListener("click", function () {
+    const text = loginBtns.innerText;
+    console.log(text);
+    if (loginBtns.innerText === "Login") {
+      const url = `./pages/login.html`;
+      document.location = url;
+    } else {
+      console.log("deconnection");
+      disconnect();
+    }
+  });
 });
