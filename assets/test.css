@@ -109,9 +109,9 @@ input {
 }
 
 button {
-  background-color: #007bff;
+  background-color: black;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -147,11 +147,6 @@ button {
 
 .trash {
   position: absolute;
-  border-radius: 2px;
-  background-color: black;
-  color: white;
-  width: auto;
-  height: auto;
   padding: 7px;
   right: 0;
 }
@@ -163,13 +158,8 @@ button {
 
 .move {
   position: absolute;
-  border-radius: 2px;
-  background-color: black;
-  color: white;
-  width: auto;
-  height: auto;
   padding: 7px;
-  right: 30px;
+  right: 35px;
 }
 
 #addwork,
@@ -245,6 +235,7 @@ button {
   justify-content: center;
   align-items: center;
   background-color: #E8F1F7;
+  height: 180px;
 }
 
 .addImgLabel {
@@ -371,5 +362,5 @@ input[type="submit"]:hover {
 .newImgDisplay {
   height: 100%;
   object-fit: cover;
-  width: 25%;
+
 }

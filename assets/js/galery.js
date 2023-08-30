@@ -44,11 +44,24 @@ export function generatethumbnail(work) {
 
       workElement.appendChild(imageElement);
       workElement.appendChild(nameElement);
+      if (i == 0) {
+        workElement.insertAdjacentHTML(
+          "afterbegin",
+          `
+        </div>
+        <div class="move" data-id=${article.id}>
+          <button id="moveButton"
+            ><i class="fa fa-solid fa-up-down-left-right" aria-hidden="true"></i
+          ></button>
+        </div>`
+        );
+      }
       workElement.insertAdjacentHTML(
         "afterbegin",
         `
+      </div>
       <div class="trash" data-id=${article.id}>
-        <button id="trashButtonNb1"
+        <button id="trashButton"
           ><i class="fa fa-light fa-trash-can" aria-hidden="true"></i
         ></button>
       </div>`
