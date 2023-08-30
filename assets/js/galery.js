@@ -1,6 +1,7 @@
 import { deleteWork } from "./api.js";
 export function generateWorks(work) {
   const works = JSON.parse(work);
+  regen("gallery");
   for (let i = 0; i < works.length; i++) {
     const article = works[i];
     const sectionGalery = document.getElementById("gallery");
@@ -21,9 +22,9 @@ export function generateWorks(work) {
     }
   }
 }
-
 export function generatethumbnail(work) {
   const works = JSON.parse(work);
+  regen("containerThumb");
   for (let i = 0; i < works.length; i++) {
     const article = works[i];
     const sectionThumb = document.getElementById("containerThumb");
@@ -52,6 +53,7 @@ export function generatethumbnail(work) {
         ></button>
       </div>`
       );
+      trash();
     }
   }
 }
@@ -62,8 +64,10 @@ export function trash() {
       event.preventDefault();
       let trashId = trash.getAttribute("data-id");
       await deleteWork(trashId);
-
-      //sessionStorage.setItem("showModalAfterReload", "true");
     });
   });
+}
+export function regen(nameParent) {
+  const parentElement = document.getElementById(nameParent); // Remplacez 'votre_parent_id' par l'ID de l'élément parent
+  parentElement.innerHTML = "";
 }

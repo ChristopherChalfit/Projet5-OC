@@ -61,7 +61,6 @@ export async function deleteWork(workId) {
     if (!response.ok) {
       throw new Error("La suppression a échoué");
     } else {
-      // console.log(fetchWorksData());
       await fetchWorksData();
       const work = localStorage.getItem("works");
       generateWorks(work);
