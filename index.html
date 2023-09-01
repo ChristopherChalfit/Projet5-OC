@@ -15,16 +15,16 @@
       crossorigin="anonymous"
     ></script>
     <meta name="description" content="" />
-    <link rel="stylesheet" href="./assets/test.css" />
     <link rel="stylesheet" href="./assets/style.css" />
+    <script type="module" src="./assets/js/index.js"></script>
   </head>
   <body>
-    <div id="myModal" class="mymodal">
+    <div id="modalEdit" class="modalEdit">
       <div class="modal-content">
         <span id="closeBtn">&times;</span>
         <div id="modal1" class="modal">
           <h2 class="modal-title">Galerie photo</h2>
-          <div id="modal__list--img">
+          <div id="modalEdit__list--img">
             <div id="containerThumb" class="image-container"></div>
             <div id="addDel">
               <button id="add--btn">Ajouter une photo</button>
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div id="modal2" class="modal" style="display: none">
-          <a href="#" class="arrow--left"
+          <a class="arrow--left"
             ><i class="fa fa-light fa-arrow-left" aria-hidden="true"></i>
           </a>
           <h2 class="modal-title">Ajout photo</h2>
@@ -44,8 +44,8 @@
                   class="fa fa-thin fa-image faAddImgSquare"
                   aria-hidden="true"
                 ></i>
-                <label class="addImgLabel"
-                  ><p>+ Ajouter Photo</p>
+                <label class="addImgBtn"
+                  ><span>+ Ajouter Photo</span>
 
                   <input
                     type="file"
@@ -54,29 +54,29 @@
                     id="imageInput"
                     required=""
                   />
-                  <img />
                 </label>
-                <p>jpg, png: 4mo max</p>
+                <span>jpg, png: 4mo max</span>
               </div>
-              <label class="addworkLabel">Titre</label>
-              <input id="addworkTitle" name="title" required="" />
-              <label class="addworkLabel">
-                <p>Catégorie</p>
+              <label class="TitleaddInput">Titre</label>
+              <input id="addworkTitle" name="title" required />
+              <label class="TitleaddInput">
+                <span>Catégorie</span>
               </label>
               <select
-                type="select"
                 class="selectCategory"
                 name="category"
                 required=""
                 id="selectCategory"
-              ></select>
+              >
+                <option value="">Sélectionnez une Catégorie</option>
+              </select>
               <hr class="hrLineAddWorkForm" />
               <input type="submit" value="Ajouter Photo" id="confirmAddWork" />
             </form>
           </div>
         </div>
         <div id="modal3" class="modal" style="display: none">
-          <a href="#" class="arrow--left"
+          <a class="arrow--left"
             ><i class="fa fa-light fa-arrow-left" aria-hidden="true"></i>
           </a>
           <h2 class="modal-title">Supprimé la galerie</h2>
@@ -173,5 +173,4 @@
       </nav>
     </footer>
   </body>
-  <script type="module" src="./assets/js/index.js"></script>
 </html>

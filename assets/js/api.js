@@ -137,6 +137,8 @@ export function isConnected() {
   const editionMode = document.getElementById("edition--mode");
   const buttonsCategories = document.querySelectorAll("#portfolio button");
   const loginBtn = document.getElementById(loginUrlBtn);
+  const editProfil = document.getElementById("editProfil--mode");
+
   if (savedUserInfo.status === 200) {
     blackhead.style.display = "flex";
     buttonsCategories.forEach((bouton) => {
@@ -144,5 +146,6 @@ export function isConnected() {
     });
     editionMode.style.display = "flex";
     loginBtn.innerHTML = "Logout";
+    editProfil.style.display = "flex";
   }
 }

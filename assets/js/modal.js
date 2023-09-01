@@ -1,5 +1,5 @@
 import { deleteAllWork } from "./api.js";
-const modals = document.getElementById("myModal");
+const modals = document.getElementById("modalEdit");
 const btnAdd = document.getElementById("add--btn");
 const returnBack = document.querySelectorAll(".arrow--left");
 const closeButton = document.getElementById("closeBtn");

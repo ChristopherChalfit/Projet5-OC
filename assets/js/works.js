@@ -17,7 +17,7 @@ export function addImgChangeListener() {
     const imgFtA = imageDiv.querySelector(".fa");
     imgFtA.style.display = "none";
     const imgDivLabel = imageDiv.querySelector("label");
-    const imgDivLabelP = imgDivLabel.querySelector("p");
+    const imgDivLabelP = imgDivLabel.querySelector("span");
     const imgDivLabelPreviousImg = imgDivLabel.querySelector("img");
     if (imgDivLabelP != null) {
       imgDivLabelP.remove();
@@ -25,13 +25,14 @@ export function addImgChangeListener() {
     if (imgDivLabelPreviousImg != null) {
       imgDivLabelPreviousImg.remove();
     }
-    imgDivLabel.setAttribute("class", "imgDivLabel");
-    const imgDivText = imageDiv.querySelector("p");
+    imgDivLabel.setAttribute("class", "imgPreview");
+    const imgDivText = imageDiv.querySelector("span");
+
     imgDivText.style.display = "none";
     const newImgDisplay = document.createElement("img");
     const imgUrl = imgInput.files[0];
     newImgDisplay.src = URL.createObjectURL(imgUrl);
-    newImgDisplay.className = "newImgDisplay";
+    newImgDisplay.className = "imgDisplay";
     imgDivLabel.appendChild(newImgDisplay);
   });
 }
