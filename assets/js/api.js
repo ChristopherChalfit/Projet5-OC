@@ -11,7 +11,9 @@ export async function fetchWorksData() {
       },
     });
     const work = await response.json();
-    window.localStorage.setItem("works", JSON.stringify(work));
+    if (work != JSON.parse(window.localStorage.getItem("works"))) {
+      window.localStorage.setItem("works", JSON.stringify(work));
+    }
     return work;
   } catch (error) {
     console.error(error);
@@ -61,7 +63,7 @@ export async function postWork(data) {
   const work = localStorage.getItem("works");
   generateWorks(work);
   generatethumbnail(work);
-  toggleModal("modal1");
+  toggleModal("modalThumb");
 }
 export async function deleteWork(workId) {
   try {
@@ -133,7 +135,7 @@ export function disconnect() {
 
 export function isConnected() {
   const savedUserInfo = getUserInfo();
-  const blackhead = document.getElementById("blackhead");
+  const blackhead = document.getElementById("blackheader");
   const editionMode = document.getElementById("edition--mode");
   const buttonsCategories = document.querySelectorAll("#portfolio button");
   const loginBtn = document.getElementById(loginUrlBtn);

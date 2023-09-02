@@ -1,6 +1,6 @@
 import { deleteWork } from "./api.js";
 export function generateWorks(work) {
-  generateWork("gallery", work);
+  generateWork("galery", work);
 }
 export function generatethumbnail(work) {
   generateWork("containerThumb", work, true);
@@ -68,6 +68,6 @@ export function trash() {
   });
 }
 export function regen(nameParent) {
-  const parentElement = document.getElementById(nameParent); // Remplacez 'votre_parent_id' par l'ID de l'élément parent
+  const parentElement = document.getElementById(nameParent);
   parentElement.innerHTML = "";
 }

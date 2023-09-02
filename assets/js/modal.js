@@ -13,7 +13,7 @@ export function openModal() {
 
 export function closeModal() {
   modals.style.display = "none";
-  toggleModal("modal1");
+  toggleModal("modalThumb");
 }
 
 export function toggleModal(modalId) {
@@ -29,11 +29,11 @@ export function toggleModal(modalId) {
 }
 export function addEventModal() {
   btnAdd.addEventListener("click", function () {
-    toggleModal("modal2");
+    toggleModal("modalAdd");
   });
   returnBack.forEach((returns) => {
     returns.addEventListener("click", function () {
-      toggleModal("modal1");
+      toggleModal("modalThumb");
     });
   });
 
@@ -42,10 +42,10 @@ export function addEventModal() {
     openModal();
   });
   delAllGal.addEventListener("click", function () {
-    toggleModal("modal3");
+    toggleModal("modalDellAll");
   });
   notdelAllGal.addEventListener("click", function () {
-    toggleModal("modal1");
+    toggleModal("modalThumb");
   });
   delAllGalVal.addEventListener("click", function () {
     const works = window.localStorage.getItem("works");

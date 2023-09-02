@@ -8,7 +8,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const pwdInput = document.getElementById("password");
   const eye = document.querySelector(".toggle-password");
-
+  const loginlink = document.getElementById(loginUrlBtn);
+  function checkIsLoginPage(){
+    if (window.location.pathname.endsWith("/pages/login.html")) {
+      loginlink.style.fontWeight = "bold";
+    } else {
+      loginlink.style.fontWeight = "";
+    }
+  }
+  checkIsLoginPage();
   function togglePasswordVisibility() {
     const passwordInput = document.getElementById("password");
     const togglePassword = document.querySelector(".toggle-password");
@@ -53,12 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginBtns = document.getElementById(loginUrlBtn);
   loginBtns.addEventListener("click", function () {
     const text = loginBtns.innerText;
-    console.log(text);
     if (loginBtns.innerText === "Login") {
       const url = `./pages/login.html`;
       document.location = url;
     } else {
-      console.log("deconnection");
       disconnect();
     }
   });
