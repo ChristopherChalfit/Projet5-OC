@@ -1,7 +1,9 @@
-import { loginError, textError, loginUrlBtn } from "./login.js";
+import { loginError } from "./login.js";
+import { loginUrlBtn } from "./navBar.js";
 import { generateWorks, generatethumbnail } from "./galery.js";
 import { toggleModal } from "./modal.js";
-
+import { textErrorLogin } from "./const.js";
+import { errorAddWork } from "./works.js";
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
@@ -42,12 +44,12 @@ export async function postLogin(data) {
     },
     body: JSON.stringify(data),
   });
-  const rps = await response.json();
+  const dataResponse = await response.json();
   if (response.status == "401" || response.status == "404") {
-    sendMessageError(textError);
+    displayMessageError(textErrorLogin, loginError);
   } else {
-    tokenAuth(rps.userId, rps.token, response.status);
-    return rps;
+    tokenAuth(dataResponse.userId, dataResponse.token, response.status);
+    return dataResponse;
   }
 }
 export async function postWork(data) {
@@ -59,7 +61,6 @@ export async function postWork(data) {
     },
     body: data,
   });
-  const rps = await response.json();
   await fetchWorksData();
   const work = localStorage.getItem("works");
   generateWorks(work);
@@ -120,14 +121,15 @@ function checkLocalStorage() {
   const token = window.localStorage.getItem("tokenAuth");
   if (token === "undefined") {
     loginError.innerHTML = textError;
+    displayMessageError("Erreur token", loginError);
   } else {
     const message = "Connexion réussie !";
     const url = `../index.html?message=${encodeURIComponent(message)}`;
     document.location = url;
   }
 }
-export function sendMessageError(msg) {
-  loginError.innerHTML = msg;
+export function displayMessageError(msg, element) {
+  element.innerHTML = msg;
 }
 export function disconnect() {
   localStorage.removeItem("tokenAuth");
@@ -151,4 +153,13 @@ export function isConnected() {
     loginBtn.innerHTML = "Logout";
     editProfil.style.display = "flex";
   }
+}
+export function checkFile(fileInput) {
+  const file = fileInput.files[0];
+  const maxSize = 4 * 1024 * 1024;
+  if (file.size > maxSize) {
+    return false;
+  }
+  errorAddWork.textContent = "";
+  return true;
 }

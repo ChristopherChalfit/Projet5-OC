@@ -1,4 +1,5 @@
 import { deleteAllWork } from "./api.js";
+import { addWorkForm, resetForm } from "./works.js";
 const modals = document.getElementById("modalEdit");
 const btnAdd = document.getElementById("add--btn");
 const returnBack = document.querySelectorAll(".arrow--left");
@@ -14,6 +15,7 @@ export function openModal() {
 export function closeModal() {
   modals.style.display = "none";
   toggleModal("modalThumb");
+  resetForm(addWorkForm);
 }
 
 export function toggleModal(modalId) {
@@ -47,7 +49,8 @@ export function addEventModal() {
   notdelAllGal.addEventListener("click", function () {
     toggleModal("modalThumb");
   });
-  delAllGalVal.addEventListener("click", function () {
+  delAllGalVal.addEventListener("click", function (event) {
+    event.preventDefault();
     const works = window.localStorage.getItem("works");
     deleteAllWork(works);
     window.localStorage.removeItem("works");
@@ -55,12 +58,6 @@ export function addEventModal() {
   window.addEventListener("click", function (event) {
     if (event.target === modals) {
       closeModal();
-    }
-  });
-  window.addEventListener("load", function () {
-    if (sessionStorage.getItem("showModalAfterReload")) {
-      openModal();
-      sessionStorage.removeItem("showModalAfterReload");
     }
   });
 }

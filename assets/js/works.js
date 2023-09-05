@@ -1,12 +1,11 @@
-import { postWork } from "./api.js";
+import { postWork, displayMessageError, checkFile } from "./api.js";
+import { textErrorFileWeight } from "./const.js";
+export const addWorkForm = document.getElementById("addworkform");
 export function addPostListener() {
-  const addWorkForm = document.getElementById("addworkform");
   const btnInput = document.getElementById("confirmAddWork");
   addWorkForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     if (addWorkForm.checkValidity()) {
-      btnInput.disabled = false;
-      const addWorkForm = document.getElementById("addworkform");
       const formData = new FormData(addWorkForm);
       await postWork(formData);
       resetForm(addWorkForm);
@@ -18,14 +17,21 @@ export function checkFormIsValide() {
   const addWorkForm = document.getElementById("addworkform");
   const addChoiceType = document.getElementById("selectCategory");
   const btnInput = document.getElementById("confirmAddWork");
-  addWorkForm.addEventListener("change", function (event) {
-    if (addWorkForm.checkValidity && addChoiceType.value != "") {
+  const inputFile = document.getElementById("imageInput");
+  btnInput.disabled = true;
+  addWorkForm.addEventListener("change", function () {
+    if (
+      addWorkForm.checkValidity() &&
+      addChoiceType.value != "" &&
+      inputFile.files.length > 0
+    ) {
       btnInput.disabled = false;
     } else {
       btnInput.disabled = true;
     }
   });
 }
+export const errorAddWork = document.getElementById("error--import");
 export function addImgChangeListener() {
   const imgInput = document.querySelector('input[name="image"]');
   imgInput.addEventListener("change", function (event) {
@@ -52,21 +58,12 @@ export function addImgChangeListener() {
       newImgDisplay.src = URL.createObjectURL(imgUrl);
       newImgDisplay.className = "imgDisplay";
       imgDivLabel.appendChild(newImgDisplay);
+    } else {
+      displayMessageError(textErrorFileWeight, errorAddWork);
     }
   });
 }
-function checkFile(fileInput) {
-  const resultDiv = document.querySelector(".error--import");
-  const file = fileInput.files[0];
-  const maxSize = 4 * 1024 * 1024; 
-  if (file.size > maxSize) {
-    resultDiv.textContent = "Le fichier dépasse la taille maximale de 4 Mo.";
-    return false;
-  }
-  resultDiv.textContent = "";
-  return true;
-}
-function resetForm(form){
+export function resetForm(form) {
   form.reset();
   const imageDiv = document.getElementById("dropzone");
   const imgFtA = imageDiv.querySelector(".fa");
@@ -76,10 +73,14 @@ function resetForm(form){
   const imgDivText = imageDiv.querySelector("span");
   imgFtA.style.display = "";
   imgDivLabelP.style.display = "";
-  imgDivLabelPreviousImg.style.display = "";
+  if (imgDivLabelPreviousImg) {
+    imgDivLabelPreviousImg.style.display = "";
+  }
   imgDivLabel.setAttribute("class", "addImgBtn");
   imgDivText.style.display = "";
   const newImgDisplay = document.querySelector(".imgDisplay");
-  newImgDisplay.remove();
+  errorAddWork.textContent = "";
+  if (newImgDisplay) {
+    newImgDisplay.remove();
+  }
 }
-

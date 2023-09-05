@@ -9,7 +9,7 @@ export function genererCategories(categories) {
       sectionFiltre.appendChild(btnElement);
     }
   } else {
-    console.log("L'élément parent avec la classe 'btn-filtre' n'existe pas");
+    console.log(`L'élément parent avec la classe '${categories}' n'existe pas`);
   }
 }
 export function filtrerProjets() {
@@ -71,6 +71,6 @@ export async function genererCategoriesThumb(categories) {
       sectionFiltre.appendChild(btnElement);
     }
   } else {
-    console.log("L'élément parent avec la classe 'btn-filtre' n'existe pas");
+    console.log(`L'élément parent avec la classe '${categories}' n'existe pas`);
   }
 }
