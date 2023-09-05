@@ -1,6 +1,7 @@
 import { loginError, textError, loginUrlBtn } from "./login.js";
 import { generateWorks, generatethumbnail } from "./galery.js";
 import { toggleModal } from "./modal.js";
+
 export async function fetchWorksData() {
   try {
     const url = "http://localhost:5678/api/works";
@@ -125,7 +126,7 @@ function checkLocalStorage() {
     document.location = url;
   }
 }
-function sendMessageError(msg) {
+export function sendMessageError(msg) {
   loginError.innerHTML = msg;
 }
 export function disconnect() {

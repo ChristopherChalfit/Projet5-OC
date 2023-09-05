@@ -354,7 +354,7 @@ figure {
 	color: #1d6154;
 }
 
-.login .login--error {
+.login #login--error {
 	color: #B1663C;
 	text-decoration: underline;
 	text-underline-offset: 2px;

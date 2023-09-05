@@ -1,8 +1,7 @@
-import { postLogin, disconnect } from "./api.js";
+import { postLogin, disconnect, sendMessageError } from "./api.js";
 export const loginUrlBtn = "loginlink";
-export const loginError = document.getElementById("login--error");
 export const textError = "Email ou mot de passe incorrect";
-
+export const loginError = document.getElementById("login--error");
 document.addEventListener("DOMContentLoaded", function () {
   const loginBtn = document.getElementById("login--btn");
   const emailInput = document.getElementById("email");
@@ -47,9 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
     await postLogin(body);
   }
 
-  function sendMessageError(msg) {
-    loginError.innerHTML = msg;
-  }
   if (loginBtn) {
     loginBtn.addEventListener("click", handleSubmit);
   }
