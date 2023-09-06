@@ -5,9 +5,9 @@ const btnAdd = document.getElementById("add--btn");
 const returnBack = document.querySelectorAll(".arrow--left");
 const closeButton = document.getElementById("closeBtn");
 const modifBtn = document.getElementById("modificationBtn");
-const delAllGal = document.getElementById("destructionGalerie");
-const delAllGalVal = document.getElementById("delAllBtn");
-const notdelAllGal = document.getElementById("notdelAllBtn");
+const delAllGalery = document.getElementById("destructionGalerie");
+const delAllGaleryValide = document.getElementById("delAllBtn");
+const notdelAllGalery = document.getElementById("notdelAllBtn");
 export function openModal() {
   modals.style.display = "block";
 }
@@ -43,13 +43,13 @@ export function addEventModal() {
   modifBtn.addEventListener("click", function () {
     openModal();
   });
-  delAllGal.addEventListener("click", function () {
+  delAllGalery.addEventListener("click", function () {
     toggleModal("modalDellAll");
   });
-  notdelAllGal.addEventListener("click", function () {
+  notdelAllGalery.addEventListener("click", function () {
     toggleModal("modalThumb");
   });
-  delAllGalVal.addEventListener("click", function (event) {
+  delAllGaleryValide.addEventListener("click", function (event) {
     event.preventDefault();
     const works = window.localStorage.getItem("works");
     deleteAllWork(works);
