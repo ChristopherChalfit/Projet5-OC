@@ -23,7 +23,7 @@ export function filtrerProjets() {
         btnActive = button;
         const allWorksElements = document.querySelectorAll("[data-category]");
         allWorksElements.forEach((worksElement) => {
-          worksElement.style.display = "block";
+          worksElement.style.display = "flex";
         });
       } else {
         btnActive.classList.remove("isActive");
@@ -33,7 +33,7 @@ export function filtrerProjets() {
           `[data-category="${category}"]`
         );
         worksElements.forEach((worksElement) => {
-          worksElement.style.display = "block";
+          worksElement.style.display = "flex";
         });
         const otherWorksElements = document.querySelectorAll(
           `[data-category]:not([data-category="${category}"])`
