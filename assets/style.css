@@ -668,6 +668,7 @@ input {
 #notdelAllBtn {
 	color: inherit;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .color-red {
