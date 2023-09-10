@@ -567,6 +567,7 @@ figure {
 #addDel #destructionGalerie {
 	color: red;
 	text-decoration: inherit;
+	cursor: pointer;
 }
 
 .trash {
