@@ -54,6 +54,7 @@ export function addEventModal() {
     const works = window.localStorage.getItem("works");
     deleteAllWork(works);
     window.localStorage.removeItem("works");
+    toggleModal("modalThumb");
   });
   window.addEventListener("click", function (event) {
     if (event.target === modals) {
